@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+    <!--用户登陆-->
+    <package name="user" namespace="/user" extends="struts-default">
+        <action name="login" class="com.ssh.action.UserAction" method="checkUser">
+            <result name="success" type="redirect">/shouye.jsp</result>
+            <result name="input">/login.jsp</result>
+            <result name="admin">/admin.jsp</result>
+
+        </action>
+        <action name="zhuxiao" class="com.ssh.action.UserAction" method="zhuxiao">
+            <result name="success" type="redirect">/shouye.jsp</result>
+        </action>
+    </package>
+
+    <!--新闻请求-->
+    <package name="news" namespace="/news" extends="struts-default">
+        <action name="deleteNews" class="com.ssh.action.NewsAction" method="deleteNews">
+            <result name="success"> </result>
+        </action>
+        <action name="updateNews" class="com.ssh.action.NewsAction" method="updateNews">
+            <result name="success"> </result>
+        </action>
+        <action name="insertNews" class="com.ssh.action.NewsAction" method="insertNews">
+            <result name="success"> </result>
+        </action>
+        <action name="lookNewsInformationByTime" class="com.ssh.action.NewsAction" method="lookNewsInformationByTime">
+            <result name="success">/WEB-INF/jsp/news.jsp</result>
+        </action>
+        <action name="lookNewsListByCategory" class="com.ssh.action.NewsAction" method="lookNewsListByCategory">
+            <result name="success">/WEB-INF/jsp/news_list.jsp</result>
+        </action>
+        <action name="lookNewsInformationByTitle" class="com.ssh.action.NewsAction" method="lookNewsInformationByTitle">
+            <result name="success">/WEB-INF/jsp/news.jsp</result>
+        </action>
+        <action name="searchNewsByTitle" class="com.ssh.action.NewsAction" method="searchNewsByTitle">
+            <result name="success">/WEB-INF/jsp/search_news.jsp</result>
+        </action>
+        <action name="newsFrequency" class="com.ssh.action.NewsAction" method="newsFrequency">
+            <result name="success">/WEB-INF/jsp/search_news.jsp</result>
+        </action>
+    </package>
+
+    <!--首页异步-->
+    <package name="json" namespace="/" extends="json-default">
+        <action name="shouye" class="com.ssh.action.NewsAction" method="lookNewsCategory">
+            <result name="success" type="json">
+                <param name="root">list</param>
+            </result>
+        </action>
+        <action name="lookNewsInformationByTime" class="com.ssh.action.NewsAction" method="lookNewsInformationByTime">
+            <result name="success" type="json">
+                <param name="root">list</param>
+            </result>
+        </action>
+        <action name="lookNewsInformationByTitle" class="com.ssh.action.NewsAction" method="lookNewsInformationByTitle">
+            <result name="success" type="json">
+                <param name="root">list</param>
+            </result>
+        </action>
+    </package>
+
+    <!--类型请求-->
+    <package name="category" namespace="/category" extends="json-default">
+    <action name="lookCategory" class="com.ssh.action.CategoryAction" method="lookCategory">
+        <result name="success" type="json">
+            <param name="root">list</param>
+        </result>
+    </action>
+        <action name="insertCategory" class="com.ssh.action.CategoryAction" method="insertCategory">
+            <result name="success" type="redirect">/admin.jsp</result>
+            <result name="input">/admin.jsp</result>
+        </action>
+    </package>
+</struts>
